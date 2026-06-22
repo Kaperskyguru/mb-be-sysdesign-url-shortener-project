@@ -2,7 +2,7 @@
 //   POST /shorten { url }      -> 201 { code, shortUrl, url }
 //   GET  /:code                -> 302 redirect to the original URL
 //   GET  /api/links            -> recent links (newest first)
-//   GET  /health               -> { status: "healthy" }
+//   GET  /health               -> { status: "healthy", hot: true }
 //   GET  /cache                -> { ok, message }
 const express = require("express");
 
@@ -32,7 +32,7 @@ function isHttpUrl(value) {
 }
 
 // Health + cache (graded by the project's apiSpec).
-app.get("/health", (_req, res) => res.json({ status: "healthy" }));
+app.get("/health", (_req, res) => res.json({ status: "healthy", hot: true }));
 app.get("/cache", (_req, res) =>
   res.json({ ok: true, message: `cache warm — ${links.size} links` }),
 );
@@ -64,3 +64,5 @@ app.get("/:code", (req, res) => {
   if (!entry) return res.status(404).json({ error: "Unknown short code." });
   res.redirect(302, entry.url);
 });
+const PORT = process.env.PORT || 8080;
+app.listen(PORT, () => console.log(`url-shortener listening on :${PORT}`));
