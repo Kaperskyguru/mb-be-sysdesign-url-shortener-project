@@ -64,3 +64,7 @@ app.get("/:code", (req, res) => {
   if (!entry) return res.status(404).json({ error: "Unknown short code." });
   res.redirect(302, entry.url);
 });
+
+app.listen(port, () => {
+  console.log(`Server listening on port ${port}`);
+});
