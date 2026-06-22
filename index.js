@@ -6,7 +6,7 @@ const port = process.env.PORT || 8080;
 app.use(express.json());
 
 app.get("/", (req, res) => {
-  res.json({ ok: true, message: "Your backend is running 🎉" });
+  res.json({ ok: true, message: "Your backend is running  as🎉" });
 });
 
 app.get("/health", (req, res) => {
